@@ -423,7 +423,21 @@ public class CommonRdbmsWriter {
                 case Types.CLOB:
                 case Types.NCLOB:
                 case Types.VARCHAR:
+                    String strValueVarchar = column.asString();
+                    if (emptyAsNull && "".equals(strValueVarchar)) {
+                        preparedStatement.setString(columnIndex + 1, null);
+                    } else {
+                        preparedStatement.setString(columnIndex + 1, column.asString());
+                    }
+                    break;
                 case Types.LONGVARCHAR:
+                    String strValueLongVarchar = column.asString();
+                    if (emptyAsNull && "".equals(strValueLongVarchar)) {
+                        preparedStatement.setString(columnIndex + 1, null);
+                    } else {
+                        preparedStatement.setString(columnIndex + 1, column.asString());
+                    }
+                    break;
                 case Types.NVARCHAR:
                 case Types.LONGNVARCHAR:
                     preparedStatement.setString(columnIndex + 1, column
